@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "../../../../lib/mongodb";
 import Pendaftaran from "../../../../models/Pendaftaran";
 
-export async function GET(req: Request) {
+export async function GET() {
     await connectDB();
     try {
         const data = await Pendaftaran.find().sort({ createdAt: -1 }).lean();
@@ -11,7 +11,7 @@ export async function GET(req: Request) {
             ok:true,
             data 
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json({
             ok:false,
             error: "Failed to fetch data"
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
             ok:true,
             data: pendaftaran
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json({
             ok:false,
             error:"Failed to create pendaftaran"
