@@ -5,18 +5,16 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+type PostType = {
+    title: string;
+    slug: string;
+    body: string;
+    gambar?: string;
+    author: string;
+}
+
 const PortalBeritaPage = () => {
    const [posts, setPosts] = useState([]);
-   const [form, setForm] = useState({
-    title:'',
-    slug:'',
-    body:'',
-    author:'',
-    published:false,
-    gambar:null,
-   });
-   const [editSlug, setEditSlug] = useState<string | null>(null);
-   const [loading, setLoading] = useState(false);
 
    //fetch posts
    const fetchPosts = async () =>{
@@ -32,10 +30,10 @@ const PortalBeritaPage = () => {
     <div className="w-full">
         <h1 className="w-full text-center text-2xl font-bold p-2">Portal Berita</h1>
         <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full sm:w-[80%] p-5 mt-5 sm:mt-0">
-            {posts.map((post:any)=>(
+            {posts.map((post: PostType) => (
                 <div 
                     className="list-shadow bg-white w-full sm:w-[30%]"
-                    key={post._id}>
+                    key={post.slug}>
                     {post.gambar && (
                     <Image 
                         src={post.gambar}
