@@ -7,6 +7,22 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare, faXmark, faRightFromBracket, faNewspaper, faUser } from "@fortawesome/free-solid-svg-icons";
 
+type PostType = {
+    title: string;
+    slug: string;
+    body: string;
+    gambar?: string;
+    author: string;
+    published: boolean;
+}
+
+type PendaftaranType = {
+    _id: string;
+    nama: string;
+    noWhatsapp: string;
+    kelas: string;
+}
+
 const DashboardPage= ()=>{
     const [title, setTitle]= useState("");
     const [slug, setSlug] = useState("");
@@ -16,23 +32,9 @@ const DashboardPage= ()=>{
     const [gambar, setGambar] = useState<File | null>(null);
     const [isOpen, setIsOpen] = useState(false);
 
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<PostType[]>([]);
     const [pendaftaran, setPendaftaran] = useState([]);
-    const [form, setForm] = useState({
-        title:'',
-        slug:'',
-        body:'',
-        author:'',
-        published:false,
-        gambar:null,
-        nama:'',
-        alamat:'',
-        jenisKelamin:'',
-        tanggalLahir:'',
-        noWhatsapp:'',
-        kelas:'',
-    });
-
+    
     const fetchPosts = async () =>{
         const res = await fetch('/api/post');
         const data = await res.json();
@@ -189,8 +191,8 @@ const DashboardPage= ()=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {posts.map((post: any) => (
-                                <tr key={post._id}>
+                            {posts.map((post: PostType) => (
+                                <tr key={post.slug}>
                                     <td>
                                         {post.gambar && (
                                             <Image 
@@ -224,7 +226,7 @@ const DashboardPage= ()=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {pendaftaran.map((pendaftar: any) => (
+                            {pendaftaran.map((pendaftar: PendaftaranType) => (
                                 <tr key={pendaftar._id}>
                                     <td>{pendaftar.nama}</td>
                                     <td>{pendaftar.noWhatsapp}</td>
