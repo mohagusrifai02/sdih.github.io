@@ -2,7 +2,16 @@
 
 import {useState, useEffect, use} from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
 
+type PostType = {
+    title: string;
+    slug: string;
+    body: string;
+    gambar?: string;
+    author: string;
+    published: boolean;
+}
 export default function DetailPost(
     {
         params,
@@ -10,7 +19,7 @@ export default function DetailPost(
         params: Promise<{ slug:string }>
     }
 ) {
-    const [post, setPost] = useState<any>(null);
+    const [post, setPost] = useState<PostType | null>(null);
     const {slug} = use(params);
 
     useEffect(()=> {
@@ -30,7 +39,9 @@ export default function DetailPost(
                 <h1 className='text-2xl font-bold'>{post.title}</h1>
                 <p className=''>Written by {post.author}</p>
             </div>
-            <img src={post.gambar} alt={post.title} />
+            {post.gambar && (
+                <Image src={post.gambar} alt={post.title} width={500} height={300} />
+            )}
             <p>{post.body}</p>
         </div>
     )
