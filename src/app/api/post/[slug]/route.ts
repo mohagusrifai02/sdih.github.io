@@ -23,7 +23,7 @@ export async function PATCH(req:Request, context : {params : Promise<{slug:strin
     const contentType = req.headers.get("content-type");
     await connectDB();
 
-    let updates: any = {};
+    let updates: Record<string, unknown> = {};
 
     if( contentType?.includes('multipart/form-data')){
         const formData = await req.formData();
@@ -47,7 +47,9 @@ export async function PATCH(req:Request, context : {params : Promise<{slug:strin
                 .end(buffer);
             });
 
-            updates.gambar = (result as any).secure_url;
+            updates.gambar = (
+                result as { secure_url: string }
+            ).secure_url;
         }
     } else if(contentType?.includes("application/json")){
         updates = await req.json();
