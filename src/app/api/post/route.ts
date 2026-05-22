@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "../../../../lib/mongodb";
 import Post from "../../../../models/Post";
-import { writeFile } from "fs/promises";
-import path from "path";
 import { cloudinary } from "../../../../lib/cloudinary";
 
 interface PostFilter {
@@ -76,7 +74,7 @@ export async function POST(req: Request) {
         .end(buffer);
       });
 
-      imagePath = (result as any).secure_url;
+      imagePath = (result as { secure_url: string }).secure_url;
     }
 
     const postData = {
