@@ -1,14 +1,20 @@
 "use client";
 
 import {useState, useEffect, use} from "react"
+import Image from "next/image";
 
+type PostType ={
+    title: string;
+    gambar: string;
+    body: string;
+}
 // detail data
 export default function DetailPage({
     params,
 }:{
     params: Promise<{slug:string}>
 }){
-    const [post, setPost] = useState<any>(null);
+    const [post, setPost] = useState<PostType | null>(null);
 
     const {slug} = use(params);
 
@@ -41,7 +47,7 @@ export default function DetailPage({
     return (
         <div>
             <h1>{post.title}</h1>
-            <img src={post.gambar} />
+            <Image src={post.gambar} alt={post.title} width={600} height={400} />
             <p>{post.body}</p>
             <button onClick={handleDelete}>Hapus</button>
         </div>

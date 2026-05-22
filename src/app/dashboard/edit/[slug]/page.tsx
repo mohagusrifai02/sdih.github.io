@@ -29,7 +29,7 @@ export default function EditPage({
         });
     },[slug]);
 
-    const handleUpdate = async(e: any)=>{
+    const handleUpdate = async(e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
 
         const formData = new FormData();
