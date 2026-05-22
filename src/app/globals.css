@@ -23,4 +23,53 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.home-page{
+  background-image: url('/surabaya.jpg');
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.card-hero::before{
+  content: "";
+  width: 30px;
+  background:linear-gradient(to bottom, #171717, #ededed);
+  height: 90%;
+}
+.nav-page{
+  position: fixed;
+  top: 50px;
+  right: 20px;
+}
+.list-shadow{
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.form-list{
+  display: none;
+}
+.form-list.open{
+  display: block;
+}
+
+@media screen and (max-width:600px){
+  body{
+    flex-direction: column;
+    justify-content: center;
+  }
+  .nav-page{
+    top: 10px;
+  }
+  .nav-list{
+    display: none;
+  }
+  .nav-list.open{
+    display: block;
+  }
 }
