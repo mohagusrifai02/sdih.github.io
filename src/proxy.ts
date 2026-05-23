@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-    console.log("Middleware dijalankan");
+export function proxy(request: NextRequest) {
     const token = request.cookies.get("token")?.value;
-
-    console.log("TOKEN:", token);
 
     if (
         !token &&
